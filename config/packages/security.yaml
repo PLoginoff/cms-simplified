@@ -11,17 +11,17 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        public:
+            pattern:  ^/api/article/list
+            security: false
+            anonymous: true
+            stateless: true
+
         main:
             pattern:  ^/api/
             security: true
-            anonymous: true
+            anonymous: false
             stateless: true
             guard:
                 authenticators:
                     - App\Security\TokenAuthenticator
-
-        mz:
-            pattern:  ^/api\/article\/list/
-            security: false
-            anonymous: true
-            stateless: true

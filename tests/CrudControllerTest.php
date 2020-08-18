@@ -9,27 +9,39 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class CrudControllerTest extends WebTestCase
 {
-    public function testForbidden(): array
+    public function testForbidden()
+    {
+        $client = static::createClient();
+        $data = ['new' => 'new',];
+        $client->request('POST', '/api/article/create', [], [], [], json_encode($data));
+        $this->assertEquals(401, $client->getResponse()->getStatusCode());
+    }
+
+    public function testWrongToken()
     {
         $client = $this->createTestClient();
-
         $data = ['new' => 'new',];
         $client->request('POST', '/api/article/create', [], [], [
-            'CONTENT_TYPE' => 'application/json',
-            'HTTP_AUTHORIZATION' => "TOKEN"
+            'HTTP_AUTHORIZATION' => "WRONG TOKEN"
         ], json_encode($data));
+        $this->assertEquals(401, $client->getResponse()->getStatusCode());
+    }
+
+    public function testCreate()
+    {
+        $client = $this->createTestClient();
+        $data = ['new' => 'new',];
+        $client->request('POST', '/api/article/create', [], [], [], json_encode($data));
         $response = json_decode($client->getResponse()->getContent(), true);
 
-        $this->assertEquals(401, $client->getResponse()->getStatusCode());
-
-        return $response;
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
     protected function createTestClient()
     {
         return static::createClient([], [
-            'HTTP_AUTHORIZATION' => "TOKEN",
-            'CONTENT_TYPE'  => 'application/json'
+            'HTTP_AUTHORIZATION' => $_ENV['APP_TOKEN'],
+            'CONTENT_TYPE'       => 'application/json'
         ]);
     }
 }
