@@ -50,7 +50,7 @@ POST /api/article/delete/{id}
 
 # N.B.
  * I know about RESTfull, but i am not a fan of this
- * diagram is here: [diagram.png]
+ * [very simple diagram](diagram.png)
  * need more time: tests for sorting
  * need more time: tests for different cases
  * it's strange, but .env.local doesn't work
