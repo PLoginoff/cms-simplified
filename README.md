@@ -7,7 +7,7 @@ Creating/updating/deleting data is possible only if a secret token is provided (
 For reading all the articles, the endpoint must allow specifyinga field to sort by including
 whether in an ascending or descending order + basic limit/offset pagination.
 The whole client-server communication must be in a JSON format.
-The architecture must follow Domain-Driven Design/
+The architecture must follow Domain-Driven Design
 
 # Solution
 
