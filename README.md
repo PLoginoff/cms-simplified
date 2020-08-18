@@ -14,18 +14,21 @@ The architecture must follow Domain-Driven Design
 
  * Symfony 4.4 LTS
  * FOS Rest, Doctrine, phpunit, swagger
+ * Some database (tested on PgSQL)
  
 # Installation 
   
  * `composer install`
- * set up your database in .env.test.local/.env.dev.local
- * set up your APP_TOKEN in .env.test.local/.env.dev.local
+ * set up your database in .env.(test|dev).local
+ * set up your APP_TOKEN in .env.(test|dev).local
  * `bin/console doctrine:migrations:migrate`
  * `bin/phpunit`
 
 # Methods
 
-`POST /api/article/list?sort=title&direction=desc&limit=11&offset=0`
+```
+GET /api/article/list?sort=title&direction=desc&limit=11&offset=0
+```
 
 ```
 POST /api/article/create
@@ -37,13 +40,18 @@ POST /api/article/update/{id}
 {"title": "title", "body": "body"}
 ```
 
-`POST /api/article/delete/{id}`
+```
+POST /api/article/delete/{id}
+```
 
 # Swagger
  * run `symfony serve`
  * see http://localhost:8000/api/doc
 
 # N.B.
+ * I know about RESTfull, but i am not a fan of this
  * diagram is here: [diagram.png]
  * need more time: tests for sorting
  * need more time: tests for different cases
+ * it's strange, but .env.local doesn't work
+ * ParameterBug doesn't work too
