@@ -47,8 +47,8 @@ class CrudControllerTest extends WebTestCase
     public function testUpdate($id)
     {
         $client = $this->createTestClient();
-        $data = ['title' => 'title', 'body' => 'body'];
-        $client->request('POST', '/api/article/create', [], [], [], json_encode($data));
+        $data = ['title' => 'updated', 'body' => 'updated'];
+        $client->request('POST', "/api/article/update/$id", [], [], [], json_encode($data));
         $response = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -64,8 +64,7 @@ class CrudControllerTest extends WebTestCase
     public function testDelete($id)
     {
         $client = $this->createTestClient();
-        $data = ['title' => 'title', 'body' => 'body'];
-        $client->request('POST', '/api/article/create', [], [], [], json_encode($data));
+        $client->request('POST', "/api/article/delete/$id");
         $response = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());

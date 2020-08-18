@@ -13,11 +13,17 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-    public function getList()
+    public function getList($sort = 'createdAt', $direction = 'asc', int $limit = 10, int $offset = 0)
     {
-        return $this->createQueryBuilder('a')
+        if (!in_array($sort, ['createdAt', 'title'])) {
+            $sort = 'createdAt';
+        }
+        if (!in_array($direction, ['asc', 'desc'])) {
+            $direction = 'asc';
+        }
+        $qb = $this->createQueryBuilder('a')
             ->andWhere('a.deletedAt is null')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('a.' . $sort, $direction);
+        return $qb->getQuery()->setFirstResult($offset)->setMaxResults($limit)->getResult();
     }
 }

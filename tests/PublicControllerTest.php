@@ -12,7 +12,7 @@ class PublicControllerTest extends WebTestCase
     public function testList(): array
     {
         $client = $this->createTestClient();
-        $client->request('GET', '/api/article/list');
+        $client->request('GET', '/api/article/list?direction=desc');
         $response = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());

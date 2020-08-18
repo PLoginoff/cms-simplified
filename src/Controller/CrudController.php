@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Service\ArticleService;
-use FOS\RestBundle\Request\ParamFetcherInterface;
 use Swagger\Annotations as SWG;
-use FOS\RestBundle\Controller\Annotations\RequestParam;
 use Symfony\Component\HttpFoundation\{Request, JsonResponse};
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -38,8 +35,7 @@ class CrudController extends AbstractFOSRestController
      */
     public function create(Request $request)
     {
-        // dd($request->request); todo doesn't work :-(
-        $params = json_decode($request->getContent(), true);
+        $params = json_decode($request->getContent(), true); // todo $request->request todo doesn't work :-(
 
         $article = $this->service->create(
             $params['title'],
@@ -62,8 +58,7 @@ class CrudController extends AbstractFOSRestController
      */
     public function update(string $id, Request $request): JsonResponse
     {
-        // dd($request->request); todo doesn't work :-(
-        $params = json_decode($request->getContent(), true);
+        $params = json_decode($request->getContent(), true);  // todo $request->request todo doesn't work :-(
         $article = $this->service->update($this->repository->find($id), $params['title'], $params['body']);
         return $this->json($article, 200);
     }
@@ -81,8 +76,6 @@ class CrudController extends AbstractFOSRestController
      */
     public function delete(string $id, Request $request): JsonResponse
     {
-        // dd($request->request); todo doesn't work :-(
-        $params = json_decode($request->getContent(), true);
         $article = $this->service->delete($this->repository->find($id));
         return $this->json($article, 200);
     }
