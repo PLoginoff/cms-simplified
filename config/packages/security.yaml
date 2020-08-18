@@ -11,13 +11,17 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        doc:
+            pattern: ^/api/doc
+            security: false
+
         public:
             pattern:  ^/api/article/list
             security: false
             anonymous: true
             stateless: true
 
-        main:
+        private:
             pattern:  ^/api/
             security: true
             anonymous: false

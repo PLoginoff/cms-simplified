@@ -34,10 +34,7 @@ class PublicController extends AbstractFOSRestController
      */
     public function list(Request $request): JsonResponse
     {
-        return $this->json([]);
+        $articles = $this->repository->getList();
+        return $this->json($articles, 200);
     }
-
-
-
-
 }

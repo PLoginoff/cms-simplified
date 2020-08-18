@@ -12,4 +12,12 @@ class ArticleRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Article::class);
     }
+
+    public function getList()
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.deletedAt is null')
+            ->getQuery()
+            ->getResult();
+    }
 }
