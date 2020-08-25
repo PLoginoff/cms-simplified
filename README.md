@@ -52,5 +52,7 @@ POST /api/article/delete/{id}
  * [very simple diagram](diagram.png)
  * need more time: tests for sorting
  * need more time: tests for different cases
+ * need more time: xml format via View and ViewHandler
  * it's strange, but .env.local doesn't work
  * ParameterBug doesn't work too
+ 

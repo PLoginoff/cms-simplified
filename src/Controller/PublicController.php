@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\{Request, JsonResponse};
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Controller\Annotations\View;
 
 class PublicController extends AbstractFOSRestController
 {
@@ -36,18 +38,19 @@ class PublicController extends AbstractFOSRestController
      * @QueryParam(name="limit",       default="10",        description="limit", requirements="\d+")
      * @QueryParam(name="offset",      default="0",         description="offset", requirements="\d+")
      *
+     * @View(statusCode=200)
+     *
      * @param Request $request
-     * @return JsonResponse
+     * @return Article[]
      * @throws \Exception
      */
-    public function list(Request $request, ParamFetcherInterface $fetcher): JsonResponse
+    public function list(Request $request, ParamFetcherInterface $fetcher) : array
     {
-        $articles = $this->repository->getList(
+        return $this->repository->getList(
             $fetcher->get('sort'),
             $fetcher->get('direction'),
             (int) $fetcher->get('limit'),
             (int) $fetcher->get('offset')
         );
-        return $this->json($articles, 200);
     }
 }

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Service\ArticleService;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\{Request, JsonResponse};
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Controller\Annotations\View;
 
 class CrudController extends AbstractFOSRestController
 {
@@ -30,19 +32,18 @@ class CrudController extends AbstractFOSRestController
      * @SWG\Post(tags={"public"})
      * @SWG\Response(response=200, description="create", examples={{}})
      *
+     * @View(statusCode=200)
      * @param Request $request
-     * @return JsonResponse
+     * @return Article
      */
-    public function create(Request $request)
+    public function create(Request $request) : Article
     {
         $params = json_decode($request->getContent(), true); // todo $request->request todo doesn't work :-(
 
-        $article = $this->service->create(
+        return $this->service->create(
             $params['title'],
             $params['body']
         );
-
-        return $this->json($article, 200);
     }
 
     /**
@@ -51,16 +52,16 @@ class CrudController extends AbstractFOSRestController
      * @Route("api/article/update/{id}", name="article_update", methods={"POST"})
      * @SWG\Post(tags={"public"})
      * @SWG\Response(response=200, description="update")
+     * @View(statusCode=200)
      *
      * @param string $id
      * @param Request $request
-     * @return JsonResponse
+     * @return Article
      */
-    public function update(string $id, Request $request): JsonResponse
+    public function update(string $id, Request $request) : Article
     {
         $params = json_decode($request->getContent(), true);  // todo $request->request todo doesn't work :-(
-        $article = $this->service->update($this->repository->find($id), $params['title'], $params['body']);
-        return $this->json($article, 200);
+        return $this->service->update($this->repository->find($id), $params['title'], $params['body']);
     }
 
     /**
@@ -69,14 +70,15 @@ class CrudController extends AbstractFOSRestController
      * @Route("api/article/delete/{id}", name="article_delete", methods={"POST"})
      * @SWG\Post(tags={"public"})
      * @SWG\Response(response=200, description="delete")
+     * @View(statusCode=200)
      *
      * @param Request $request
      * @return JsonResponse
      * @throws \Exception
+     * @return Article
      */
-    public function delete(string $id, Request $request): JsonResponse
+    public function delete(string $id, Request $request): Article
     {
-        $article = $this->service->delete($this->repository->find($id));
-        return $this->json($article, 200);
+        return $this->service->delete($this->repository->find($id));
     }
 }
