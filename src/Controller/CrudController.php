@@ -29,8 +29,22 @@ class CrudController extends AbstractFOSRestController
      * Create
      *
      * @Route("api/article/create", name="article_create", methods={"POST"})
-     * @SWG\Post(tags={"public"})
+     * @SWG\Post(tags={"CRUD"})
      * @SWG\Response(response=200, description="create", examples={{}})
+     *
+     * @SWG\Parameter(
+     *      name="body",
+     *      in="body",
+     *      description="JSON Payload",
+     *      required=true,
+     *      format="application/json",
+     *      @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="title", type="string", example="title"),
+     *          @SWG\Property(property="body", type="string", example="body")
+     *          )
+     *      )
+     * )
      *
      * @View(statusCode=200)
      * @param Request $request
@@ -50,10 +64,22 @@ class CrudController extends AbstractFOSRestController
      * Update
      *
      * @Route("api/article/update/{id}", name="article_update", methods={"POST"})
-     * @SWG\Post(tags={"public"})
+     * @SWG\Post(tags={"CRUD"})
      * @SWG\Response(response=200, description="update")
+     * @SWG\Parameter(
+     *      name="body",
+     *      in="body",
+     *      description="JSON Payload",
+     *      required=true,
+     *      format="application/json",
+     *      @SWG\Schema(
+     *          type="object",
+     *          @SWG\Property(property="title", type="string", example="title"),
+     *          @SWG\Property(property="body", type="string", example="body")
+     *          )
+     *      )
+     * )
      * @View(statusCode=200)
-     *
      * @param string $id
      * @param Request $request
      * @return Article
@@ -68,7 +94,7 @@ class CrudController extends AbstractFOSRestController
      * Delete
      *
      * @Route("api/article/delete/{id}", name="article_delete", methods={"POST"})
-     * @SWG\Post(tags={"public"})
+     * @SWG\Post(tags={"CRUD"})
      * @SWG\Response(response=200, description="delete")
      * @View(statusCode=200)
      *

@@ -48,10 +48,9 @@ POST /api/article/delete/{id}
  * see http://localhost:8000/api/doc
 
 # N.B.
- * I know about RESTfull, but i am not a fan of this
+ * I know about RESTfull, but I'm not a big fan of this
  * [very simple diagram](diagram.png)
- * need more time: tests for sorting
- * need more time: tests for different cases
+ * need more time: tests for sorting, different cases
  * need more time: xml format via View and ViewHandler
  * it's strange, but .env.local doesn't work
  * ParameterBug doesn't work too

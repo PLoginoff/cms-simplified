@@ -30,11 +30,12 @@ class CrudControllerTest extends WebTestCase
     public function testCreate()
     {
         $client = $this->createTestClient();
-        $data = ['title' => 'title', 'body' => 'body'];
+        $data = ['title' => 'title ' . rand(), 'body' => 'body'];
         $client->request('POST', '/api/article/create', [], [], [], json_encode($data));
         $response = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals($data['title'], $response['title']);
 
         return $response['id'];
     }
